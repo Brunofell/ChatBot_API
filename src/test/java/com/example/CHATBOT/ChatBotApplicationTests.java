@@ -1,10 +1,10 @@
-package com.example.FURIA;
+package com.example.CHATBOT;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class FuriaApplicationTests {
+class ChatBotApplicationTests {
 
 	@Test
 	void contextLoads() {
