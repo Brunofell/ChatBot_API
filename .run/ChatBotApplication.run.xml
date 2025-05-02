@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="FuriaApplication" type="Application" factoryName="Application" nameIsGenerated="true">
+  <configuration default="false" name="ChatBotApplication" type="Application" factoryName="Application" nameIsGenerated="true">
     <envs>
       <env name="API_KEY" value="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" />
     </envs>

@@ -1,6 +1,7 @@
 package com.example.CHATBOT;
 
 
+import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,81 +12,28 @@ import reactor.core.publisher.Flux;
 
 
 @RestController
-@RequestMapping("/furia")
+@RequestMapping("/chat")
 public class AssistantController {
 
     @Autowired
-    private OpenAiChatModel chatClient;
-    @Autowired
-    private ChatService chatService;
+    private OpenAiChatModel openAiChatModel;
 
-//    @GetMapping("/informations") // retorno mais completo
-//    public ChatResponse furiaChat(@RequestParam(
-//            value = "message",
-//            defaultValue = "Fale sobre o time de e-sports FURIA.") String message){
-//        return chatClient.call(new Prompt(message));
-//
-//    }
+    @GetMapping("/music")
+    public Flux<String> musicChatConfig(@RequestParam(value = "message", defaultValue = "De saudações ao usuário e pergunte o que ele deseja.") String message) {
 
-    @GetMapping("/informations")
-    public String furiaChat(@RequestParam(
-            value = "message",
-            defaultValue = "Fale sobre o time de e-sports FURIA.") String message){
-        return chatClient.call(message);
+        String systemInstruction = "Você é um membro da equipe da plataforma ChatBot, uma plataforma que fala sobre o mundo da música. Responda de forma empolgante e descontraída como se você fosse um guitarrista muito louco!";
+        String systemRestriction = "Só responda coisas baseadas em música. Se a pergunta recebida tiver a ver com outro assunto que não seja música, explique que você não pode responder de forma bem-humorada.";
 
-    }
+        String finalPrompt = """
+                            %s
+                        
+                            %s
+                        
+                            Usuário: %s
+                        """.formatted(systemInstruction, systemRestriction, message);
 
-    @GetMapping("/stream/informations")
-    public Flux<String> furiaChatStream(@RequestParam(
-            value = "message",
-            defaultValue = "Fale sobre o time de e-sports FURIA.") String message){
-        return chatClient.stream(message);
-    }
 
-    @GetMapping("/config/informations")
-    public String furiaChatConfig(@RequestParam(value = "message", defaultValue = "Fale sobre o time de e-sports FURIA.") String message) {
-
-        String systemInstruction = "Você é um especialista sobre a equipe de e-sports FURIA. Responda de forma empolgante e atualizada!";
-
-        String finalPrompt = systemInstruction + "\nUsuário: " + message;
-
-        return chatClient.call(finalPrompt);
-    }
-
-    @GetMapping("/latest-news")
-    public String getFuriaNews(@RequestParam(value = "message", defaultValue = "Fale sobre o time de e-sports FURIA.") String message) {
-        // Buscar as notícias mais recentes sobre FURIA
-        String noticiasFuria = chatService.buscarNoticiasFuria();
-
-        // Criar o prompt com as notícias mais recentes
-        String prompt = "Aqui estão as últimas notícias sobre a FURIA:\n" + noticiasFuria + "\nAgora, responda à seguinte pergunta: " + message;
-
-        // Chama o ChatGPT com o prompt atualizado
-        return chatClient.call(prompt);
+        return openAiChatModel.stream(finalPrompt);
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
