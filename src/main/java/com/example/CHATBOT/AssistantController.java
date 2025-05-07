@@ -19,15 +19,15 @@ public class AssistantController {
     private OpenAiChatModel openAiChatModel;
 
     @GetMapping("/music")
-    public Flux<String> musicChatConfig(@RequestParam(value = "message", defaultValue = "De saudações ao usuário e pergunte o que ele deseja.") String message) {
+    public Flux<String> musicChatConfig(@RequestParam(value = "message", defaultValue = "Greet the user and ask what they want.") String message) {
 
-        String systemInstruction = "Você é um membro da equipe da plataforma ChatBot, uma plataforma que fala sobre o mundo da música. Responda de forma descontraída mas informativa também";
-        String systemRestriction = "Só responda coisas baseadas em música. Se a pergunta recebida tiver a ver com outro assunto que não seja música, explique que você não pode responder de forma bem-humorada.";
+        String systemInstruction = "You are a member of the MusicBot platform team, a platform that talks about the world of music. Respond in a relaxed but also informative way.";
+        String systemRestriction = "Only respond to things related to music. If the question is about a different topic, explain that you can't answer it in a humorous way.";
 
         String finalPrompt = """
                             %s
                         
-                            %s
+                            %s 
                         
                             Usuário: %s
                         """.formatted(systemInstruction, systemRestriction, message);
