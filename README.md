@@ -7,6 +7,8 @@
 
 Spring Boot backend for MusicBot - a specialized chatbot focused exclusively on the world of music.
 
+> 🔗 **Frontend Repository**: [MusicBot-Frontend](https://github.com/Brunofell/ChatBot)
+
 ## 📋 Table of Contents
 
 - [Overview](#overview)
