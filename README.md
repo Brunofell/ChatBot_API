@@ -80,8 +80,7 @@ src/
 
 1. Clone the repository
    ```bash
-   git clone https://github.com/yourusername/musicbot-backend.git
-   cd musicbot-backend
+   git clone https://github.com/Brunofell/ChatBot_API.git
    ```
 
 2. Build with Maven
